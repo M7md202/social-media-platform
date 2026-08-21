@@ -1,0 +1,20 @@
+{
+  "name": "social-media-platform",
+  "version": "1.0.0",
+  "description": "Complete Social Media Marketing & Automation Platform",
+  "private": true,
+  "scripts": {
+    "dev": "concurrently \"npm run dev:web\" \"npm run dev:api\"",
+    "dev:web": "cd web && npm run dev",
+    "dev:api": "cd api && npm run dev",
+    "build": "npm run build:web && npm run build:api",
+    "build:web": "cd web && npm run build",
+    "build:api": "cd api && npm run build",
+    "start": "concurrently \"npm run start:web\" \"npm run start:api\"",
+    "start:web": "cd web && npm start",
+    "start:api": "cd api && npm start"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.0"
+  }
+}
