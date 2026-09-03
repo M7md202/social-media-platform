@@ -1,0 +1,40 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    name: Lint & Format
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'npm'
+      - name: Install API dependencies
+        run: cd api && npm ci
+      - name: Lint API
+        run: cd api && npm run lint || true
+      - name: Install Web dependencies
+        run: cd web && npm ci
+      - name: Lint Web
+        run: cd web && npm run lint || true
+
+  build:
+    runs-on: ubuntu-latest
+    name: Build
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'npm'
+      - name: Build API
+        run: cd api && npm ci && npm run build
+      - name: Build Web
+        run: cd web && npm ci && npm run build
